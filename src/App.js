@@ -1,12 +1,22 @@
 import React, { Component } from 'react'
-import { Container, Header, Feed, Icon } from 'semantic-ui-react'
+import {
+  Container,
+  Dimmer,
+  Feed,
+  Header,
+  Icon,
+  Loader,
+  Message
+} from 'semantic-ui-react'
 import cfg from './config'
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      posts: []
+      posts: [],
+      loading: false,
+      error: null
     }
   }
 
@@ -16,11 +26,15 @@ class App extends Component {
 
   fetchFrontpage = async () => {
     try {
+      this.setState({ ...this.state, loading: true })
       const response = await fetch(cfg.apiBaseUrl + 'news')
+      if (!response.ok) {
+        throw new Error(response.statusText)
+      }
       const data = await response.json()
-      this.setState({ posts: data })
-    } catch (err) {
-      console.log(err)
+      this.setState({ posts: data, loading: false, error: null })
+    } catch (error) {
+      this.setState({ posts: [], loading: false, error: error.message })
     }
   }
 
@@ -58,9 +72,15 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Container>
+        <Container text>
           <Header as="h1">Hacker News</Header>
+          <Message error hidden={!this.state.error}>
+            Error while fetching posts: {this.state.error}
+          </Message>
           <Feed>{posts}</Feed>
+          <Dimmer active={this.state.loading}>
+            <Loader>Fetching posts</Loader>
+          </Dimmer>
         </Container>
       </div>
     )
