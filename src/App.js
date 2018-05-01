@@ -24,22 +24,32 @@ class App extends Component {
     }
   }
 
+  getUrl = post =>
+    post.url.startsWith('http')
+      ? post.url
+      : `${cfg.hnBaseUrl}item?id=${post.id}`
+
   render() {
     const posts = this.state.posts.map(p => (
       <Feed.Event>
         <Feed.Content>
           <Feed.Summary>
-            {p.title} <Feed.Date>{p.time_ago}</Feed.Date>
+            <a href={this.getUrl(p)}>{p.title}</a>
+            <Feed.Date>{p.time_ago}</Feed.Date>
           </Feed.Summary>
           <Feed.Meta>
             <Feed.Like>
               <Icon name="like" /> {p.points}
             </Feed.Like>
             <Feed.Like>
-              <Icon name="comments" /> {p.comments_count}
+              <a href={`${cfg.hnBaseUrl}item?id=${p.id}`}>
+                <Icon name="comments" /> {p.comments_count}
+              </a>
             </Feed.Like>
             <Feed.Like>
-              <Icon name="user" /> {p.user}
+              <a href={`${cfg.hnBaseUrl}user?id=${p.user}`}>
+                <Icon name="user" /> {p.user}
+              </a>
             </Feed.Like>
           </Feed.Meta>
         </Feed.Content>
