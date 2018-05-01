@@ -1,5 +1,16 @@
 {
   "name": "hn-react",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/acifani/hn-react"
+  },
+  "author": {
+    "name": "Alessandro Cifani",
+    "email": "alessandro.cifani@gmail.com",
+    "url": "https://github.com/acifani"
+  },
+  "homepage": "https://acifani.github.io/hn-react/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
