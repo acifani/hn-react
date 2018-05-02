@@ -32,6 +32,13 @@ class Post extends Component {
                 <Icon name="user" /> {p.user}
               </a>
             </Feed.Like>
+            {p.domain && (
+              <Feed.Like>
+                <a href={`http://${p.domain}`}>
+                  <Icon name="world" /> {p.domain}
+                </a>
+              </Feed.Like>
+            )}
           </Feed.Meta>
         </Feed.Content>
       </Feed.Event>
