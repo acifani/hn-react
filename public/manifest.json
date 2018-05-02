@@ -1,6 +1,6 @@
 {
-  "short_name": "hn-react",
-  "name": "React Hacker News",
+  "short_name": "yahnc",
+  "name": "Yet Another HN Client",
   "icons": [
     {
       "src": "favicon.ico",

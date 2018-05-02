@@ -1,16 +1,17 @@
 {
-  "name": "hn-react",
+  "name": "yahnc",
+  "description": "Yet Another HN Client",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/acifani/hn-react"
+    "url": "https://github.com/acifani/yahnc"
   },
   "author": {
     "name": "Alessandro Cifani",
     "email": "alessandro.cifani@gmail.com",
     "url": "https://github.com/acifani"
   },
-  "homepage": "https://acifani.github.io/hn-react/",
+  "homepage": "https://acifani.github.io/yahnc/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
