@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Dimmer, Feed, Loader, Message } from 'semantic-ui-react'
-import Post from './Post'
+import PostListRow from './PostListRow'
 import cfg from '../config'
 
 class PostList extends Component {
@@ -32,14 +32,14 @@ class PostList extends Component {
   }
 
   render() {
-    const posts = this.state.posts.map(p => <Post post={p} />)
+    const posts = this.state.posts.map(p => <PostListRow post={p} />)
 
     return (
       <div>
         <Message error hidden={!this.state.error}>
           Error while fetching posts: {this.state.error}
         </Message>
-        <Feed>{posts}</Feed>
+        <Feed size="large">{posts}</Feed>
         <Dimmer active={this.state.loading}>
           <Loader>Fetching posts</Loader>
         </Dimmer>

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Feed, Icon } from 'semantic-ui-react'
 import cfg from '../config'
 
-class Post extends Component {
+class PostListRow extends Component {
   getUrl = post =>
     post.url.startsWith('http')
       ? post.url
@@ -46,4 +46,4 @@ class Post extends Component {
   }
 }
 
-export default Post
+export default PostListRow
