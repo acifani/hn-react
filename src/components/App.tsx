@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Header } from 'semantic-ui-react'
-import PostList from './PostList'
+import { PostList } from './PostList'
 
 const App = () => (
   <div className="App">

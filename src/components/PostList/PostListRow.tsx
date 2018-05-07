@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Feed } from 'semantic-ui-react'
-import cfg from '../config'
+import cfg from '../../config'
 
 export type Post = {
   title: string

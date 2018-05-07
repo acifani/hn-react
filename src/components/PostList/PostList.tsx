@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Dimmer, Feed, Loader, Message } from 'semantic-ui-react'
-import cfg from '../config'
+import cfg from '../../config'
 import PostListRow, { Post } from './PostListRow'
 
 type State = {
