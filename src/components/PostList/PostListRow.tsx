@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { Feed } from 'semantic-ui-react'
 import cfg from '../../config'
 
@@ -36,9 +37,8 @@ class PostListRow extends Component<Props> {
           <Feed.Meta>
             <Feed.Like icon="like" content={p.points} />
             <Feed.Like
-              href={`${cfg.hnBaseUrl}item?id=${p.id}`}
               icon="comments"
-              content={p.comments_count}
+              content={<Link to={`/comments/${p.id}`}>{p.comments_count}</Link>}
             />
             <Feed.Like
               href={`${cfg.hnBaseUrl}user?id=${p.user}`}
