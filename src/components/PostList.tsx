@@ -1,23 +1,25 @@
 import React, { Component } from 'react'
 import { Dimmer, Feed, Loader, Message } from 'semantic-ui-react'
-import PostListRow from './PostListRow'
 import cfg from '../config'
+import PostListRow, { Post } from './PostListRow'
 
-class PostList extends Component {
-  constructor(props) {
+type State = {
+  error?: string
+  loading: boolean
+  posts: Post[]
+}
+
+class PostList extends Component<{}, State> {
+  constructor(props: {}) {
     super(props)
-    this.state = {
-      posts: [],
-      loading: false,
-      error: null,
-    }
+    this.state = { error: undefined, loading: false, posts: [] }
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     this.fetchFrontpage()
   }
 
-  fetchFrontpage = async () => {
+  public fetchFrontpage = async () => {
     try {
       this.setState({ ...this.state, loading: true })
       const response = await fetch(cfg.apiBaseUrl + 'news')
@@ -25,18 +27,18 @@ class PostList extends Component {
         throw new Error(response.statusText)
       }
       const data = await response.json()
-      this.setState({ posts: data, loading: false, error: null })
+      this.setState({ posts: data, loading: false, error: undefined })
     } catch (error) {
       this.setState({ posts: [], loading: false, error: error.message })
     }
   }
 
-  render() {
-    const posts = this.state.posts.map(p => <PostListRow post={p} />)
+  public render() {
+    const posts = this.state.posts.map(p => <PostListRow post={p} key={p.id} />)
 
     return (
       <div>
-        <Message error hidden={!this.state.error}>
+        <Message error={true} hidden={!this.state.error}>
           Error while fetching posts: {this.state.error}
         </Message>
         <Feed size="large">{posts}</Feed>

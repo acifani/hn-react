@@ -4,7 +4,7 @@ import PostList from './PostList'
 
 const App = () => (
   <div className="App">
-    <Container text>
+    <Container text={true}>
       <Header as="h1">Hacker News</Header>
       <PostList />
     </Container>
