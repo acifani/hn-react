@@ -1,18 +1,25 @@
 import React, { Component } from 'react'
+import { RouteComponentProps } from 'react-router'
 import { Dimmer, Feed, Loader, Message } from 'semantic-ui-react'
 import cfg from '../../config'
 import PostListRow, { Post } from './PostListRow'
+
+type Props = {
+  page?: number
+}
 
 type State = {
   error?: string
   loading: boolean
   posts: Post[]
+  page: number
 }
 
-class PostList extends Component<{}, State> {
-  constructor(props: {}) {
+class PostList extends Component<RouteComponentProps<Props>, State> {
+  constructor(props: RouteComponentProps<Props>) {
     super(props)
-    this.state = { error: undefined, loading: false, posts: [] }
+    const page = props.match.params.page || 1
+    this.state = { error: undefined, loading: false, posts: [], page }
   }
 
   public componentDidMount() {
@@ -22,7 +29,9 @@ class PostList extends Component<{}, State> {
   public fetchFrontpage = async () => {
     try {
       this.setState({ ...this.state, loading: true })
-      const response = await fetch(cfg.apiBaseUrl + 'news')
+      const response = await fetch(
+        `${cfg.apiBaseUrl}news?page=${this.state.page}`
+      )
       if (!response.ok) {
         throw new Error(response.statusText)
       }
