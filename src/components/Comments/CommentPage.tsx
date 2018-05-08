@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { RouteComponentProps } from 'react-router'
-import { Comment, Dimmer, Loader, Message } from 'semantic-ui-react'
+import { Dimmer, Loader, Message } from 'semantic-ui-react'
 import cfg from '../../config'
-import CommentListRow, { Comment as CommentType } from './CommentListRow'
+import CommentList from './CommentList'
+import { Comment as CommentType } from './CommentListRow'
 
 type Props = {
   id: number
@@ -14,7 +15,7 @@ type State = {
   comments: CommentType[]
 }
 
-class CommentList extends Component<RouteComponentProps<Props>, State> {
+class CommentPage extends Component<RouteComponentProps<Props>, State> {
   constructor(props: RouteComponentProps<Props>) {
     super(props)
     this.state = { loading: false, comments: [] }
@@ -45,16 +46,12 @@ class CommentList extends Component<RouteComponentProps<Props>, State> {
   }
 
   public render() {
-    const comments = this.state.comments.map(c => (
-      <CommentListRow key={c.id} comment={c} />
-    ))
-
     return (
       <div>
         <Message error={true} hidden={!this.state.error}>
           Error while fetching comments: {this.state.error}
         </Message>
-        <Comment.Group size="large">{comments}</Comment.Group>
+        <CommentList comments={this.state.comments} />
         <Dimmer active={this.state.loading}>
           <Loader>Fetching comments</Loader>
         </Dimmer>
@@ -63,4 +60,4 @@ class CommentList extends Component<RouteComponentProps<Props>, State> {
   }
 }
 
-export default CommentList
+export default CommentPage

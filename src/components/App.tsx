@@ -1,8 +1,8 @@
 import React from 'react'
 import { Route, Switch } from 'react-router'
 import { Container, Header } from 'semantic-ui-react'
-import { CommentList } from './CommentList'
-import { PostList } from './PostList'
+import { CommentPage } from './Comments'
+import { PostList } from './News'
 
 const App = () => (
   <div className="App">
@@ -12,7 +12,7 @@ const App = () => (
       <Switch>
         <Route path="/" exact={true} component={PostList} />
         <Route path="/news/:page?" component={PostList} />
-        <Route path="/comments/:id" component={CommentList} />
+        <Route path="/comments/:id" component={CommentPage} />
       </Switch>
     </Container>
   </div>
