@@ -38,7 +38,9 @@ class NewsListRow extends Component<Props> {
             <Feed.Like icon="like" content={n.points} />
             <Feed.Like
               icon="comments"
-              content={<Link to={`/comments/${n.id}`}>{n.comments_count}</Link>}
+              content={n.comments_count}
+              as={Link}
+              to={`/comments/${n.id}`}
             />
             <Feed.Like
               href={`${cfg.hnBaseUrl}user?id=${n.user}`}
