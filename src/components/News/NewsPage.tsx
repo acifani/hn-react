@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { RouteComponentProps } from 'react-router'
-import { Dimmer, Feed, Loader, Message } from 'semantic-ui-react'
+import { Dimmer, Loader, Message } from 'semantic-ui-react'
 import cfg from '../../config'
-import PostListRow, { Post } from './PostListRow'
+import NewsList from './NewsList'
+import { News } from './NewsListRow'
 
 type Props = {
   page?: number
@@ -11,15 +12,15 @@ type Props = {
 type State = {
   error?: string
   loading: boolean
-  posts: Post[]
+  news: News[]
   page: number
 }
 
-class PostList extends Component<RouteComponentProps<Props>, State> {
+class NewsPage extends Component<RouteComponentProps<Props>, State> {
   constructor(props: RouteComponentProps<Props>) {
     super(props)
     const page = props.match.params.page || 1
-    this.state = { error: undefined, loading: false, posts: [], page }
+    this.state = { error: undefined, loading: false, news: [], page }
   }
 
   public componentDidMount() {
@@ -36,21 +37,19 @@ class PostList extends Component<RouteComponentProps<Props>, State> {
         throw new Error(response.statusText)
       }
       const data = await response.json()
-      this.setState({ posts: data, loading: false, error: undefined })
+      this.setState({ news: data, loading: false, error: undefined })
     } catch (error) {
-      this.setState({ posts: [], loading: false, error: error.message })
+      this.setState({ news: [], loading: false, error: error.message })
     }
   }
 
   public render() {
-    const posts = this.state.posts.map(p => <PostListRow post={p} key={p.id} />)
-
     return (
       <div>
         <Message error={true} hidden={!this.state.error}>
           Error while fetching posts: {this.state.error}
         </Message>
-        <Feed size="large">{posts}</Feed>
+        <NewsList news={this.state.news} />
         <Dimmer active={this.state.loading}>
           <Loader>Fetching posts</Loader>
         </Dimmer>
@@ -59,4 +58,4 @@ class PostList extends Component<RouteComponentProps<Props>, State> {
   }
 }
 
-export default PostList
+export default NewsPage

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Feed } from 'semantic-ui-react'
 import cfg from '../../config'
 
-export type Post = {
+export type News = {
   title: string
   time_ago: string
   comments_count: number
@@ -15,41 +15,41 @@ export type Post = {
 }
 
 type Props = {
-  post: Post
+  news: News
 }
 
-class PostListRow extends Component<Props> {
-  public getUrl = (post: Post) =>
-    post.url.startsWith('http')
-      ? post.url
-      : `${cfg.hnBaseUrl}item?id=${post.id}`
+class NewsListRow extends Component<Props> {
+  public getUrl = (news: News) =>
+    news.url.startsWith('http')
+      ? news.url
+      : `${cfg.hnBaseUrl}item?id=${news.id}`
 
   public render() {
-    const p = this.props.post
+    const n = this.props.news
 
     return (
       <Feed.Event>
         <Feed.Content>
           <Feed.Summary>
-            <a href={this.getUrl(p)}>{p.title}</a>
-            <Feed.Date>{p.time_ago}</Feed.Date>
+            <a href={this.getUrl(n)}>{n.title}</a>
+            <Feed.Date>{n.time_ago}</Feed.Date>
           </Feed.Summary>
           <Feed.Meta>
-            <Feed.Like icon="like" content={p.points} />
+            <Feed.Like icon="like" content={n.points} />
             <Feed.Like
               icon="comments"
-              content={<Link to={`/comments/${p.id}`}>{p.comments_count}</Link>}
+              content={<Link to={`/comments/${n.id}`}>{n.comments_count}</Link>}
             />
             <Feed.Like
-              href={`${cfg.hnBaseUrl}user?id=${p.user}`}
+              href={`${cfg.hnBaseUrl}user?id=${n.user}`}
               icon="user"
-              content={p.user}
+              content={n.user}
             />
-            {p.domain && (
+            {n.domain && (
               <Feed.Like
-                href={`http://${p.domain}`}
+                href={`http://${n.domain}`}
                 icon="world"
-                content={p.domain}
+                content={n.domain}
               />
             )}
           </Feed.Meta>
@@ -59,4 +59,4 @@ class PostListRow extends Component<Props> {
   }
 }
 
-export default PostListRow
+export default NewsListRow
