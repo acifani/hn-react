@@ -1,3 +1,7 @@
 .Header > a {
   color: inherit;
 }
+
+.Footer {
+  margin: 2em 0em;
+}

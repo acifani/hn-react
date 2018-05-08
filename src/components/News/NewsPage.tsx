@@ -60,28 +60,17 @@ class NewsPage extends Component<RouteComponentProps<Props>, State> {
 
         <NewsList news={this.state.news} />
 
-        <Button
-          basic={true}
-          size="small"
-          floated="left"
-          labelPosition="left"
-          icon="chevron left"
-          content="Prev"
-          disabled={page < 2}
-          as="a"
-          href={prevLink}
-        />
+        <Button.Group attached="bottom" basic={true}>
+          <Button
+            size="small"
+            content="Prev"
+            disabled={page < 2}
+            as="a"
+            href={prevLink}
+          />
 
-        <Button
-          basic={true}
-          size="small"
-          floated="right"
-          labelPosition="right"
-          icon="chevron right"
-          content="Next"
-          as="a"
-          href={nextLink}
-        />
+          <Button size="small" content="Next" as="a" href={nextLink} />
+        </Button.Group>
       </div>
     )
   }
