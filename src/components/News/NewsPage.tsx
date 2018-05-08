@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { RouteComponentProps } from 'react-router'
-import { Dimmer, Loader, Message } from 'semantic-ui-react'
+import { Button, Dimmer, Loader, Message } from 'semantic-ui-react'
 import cfg from '../../config'
 import NewsList from './NewsList'
 import { News } from './NewsListRow'
 
 type Props = {
-  page?: number
+  page?: string
 }
 
 type State = {
@@ -19,7 +19,7 @@ type State = {
 class NewsPage extends Component<RouteComponentProps<Props>, State> {
   constructor(props: RouteComponentProps<Props>) {
     super(props)
-    const page = props.match.params.page || 1
+    const page = parseInt(props.match.params.page || '1', 10)
     this.state = { error: undefined, loading: false, news: [], page }
   }
 
@@ -44,15 +44,44 @@ class NewsPage extends Component<RouteComponentProps<Props>, State> {
   }
 
   public render() {
+    const page = this.state.page
+    const prevLink = page > 1 ? `/news/${page - 1}` : '/'
+    const nextLink = page ? `/news/${page + 1}` : '/news/2'
+
     return (
       <div>
-        <Message error={true} hidden={!this.state.error}>
-          Error while fetching posts: {this.state.error}
-        </Message>
-        <NewsList news={this.state.news} />
         <Dimmer active={this.state.loading}>
           <Loader>Fetching posts</Loader>
         </Dimmer>
+
+        <Message error={true} hidden={!this.state.error}>
+          Error while fetching posts: {this.state.error}
+        </Message>
+
+        <NewsList news={this.state.news} />
+
+        <Button
+          basic={true}
+          size="small"
+          floated="left"
+          labelPosition="left"
+          icon="chevron left"
+          content="Prev"
+          disabled={page < 2}
+          as="a"
+          href={prevLink}
+        />
+
+        <Button
+          basic={true}
+          size="small"
+          floated="right"
+          labelPosition="right"
+          icon="chevron right"
+          content="Next"
+          as="a"
+          href={nextLink}
+        />
       </div>
     )
   }
