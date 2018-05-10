@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { RouteComponentProps } from 'react-router'
+import { Link } from 'react-router-dom'
 import { Button, Dimmer, Loader, Message } from 'semantic-ui-react'
 import cfg from '../../config'
 import NewsList from './NewsList'
@@ -13,26 +14,30 @@ type State = {
   error?: string
   loading: boolean
   news: News[]
-  page: number
 }
 
 class NewsPage extends Component<RouteComponentProps<Props>, State> {
   constructor(props: RouteComponentProps<Props>) {
     super(props)
-    const page = parseInt(props.match.params.page || '1', 10)
-    this.state = { error: undefined, loading: false, news: [], page }
+    this.state = { error: undefined, loading: false, news: [] }
+  }
+
+  public async componentWillReceiveProps(
+    nextProps: RouteComponentProps<Props>
+  ) {
+    if (nextProps.location.pathname !== this.props.location.pathname) {
+      await this.fetchNewspage(this.getPage(nextProps))
+    }
   }
 
   public componentDidMount() {
-    this.fetchFrontpage()
+    this.fetchNewspage(this.getPage(this.props))
   }
 
-  public fetchFrontpage = async () => {
+  public fetchNewspage = async (page: number) => {
     try {
       this.setState({ ...this.state, loading: true })
-      const response = await fetch(
-        `${cfg.apiBaseUrl}news?page=${this.state.page}`
-      )
+      const response = await fetch(`${cfg.apiBaseUrl}news?page=${page}`)
       if (!response.ok) {
         throw new Error(response.statusText)
       }
@@ -43,8 +48,11 @@ class NewsPage extends Component<RouteComponentProps<Props>, State> {
     }
   }
 
+  public getPage = (props: RouteComponentProps<Props>) =>
+    parseInt(props.match.params.page || '1', 10)
+
   public render() {
-    const page = this.state.page
+    const page = this.getPage(this.props)
     const prevLink = page > 1 ? `/news/${page - 1}` : '/'
     const nextLink = page ? `/news/${page + 1}` : '/news/2'
 
@@ -60,16 +68,14 @@ class NewsPage extends Component<RouteComponentProps<Props>, State> {
 
         <NewsList news={this.state.news} />
 
-        <Button.Group attached="bottom" basic={true}>
+        <Button.Group attached="bottom" basic={true} size="small">
           <Button
-            size="small"
             content="Prev"
-            disabled={page < 2}
-            as="a"
-            href={prevLink}
+            as={Link}
+            to={prevLink}
+            disabled={this.getPage(this.props) < 2}
           />
-
-          <Button size="small" content="Next" as="a" href={nextLink} />
+          <Button content="Next" as={Link} to={nextLink} />
         </Button.Group>
       </div>
     )
