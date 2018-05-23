@@ -6,9 +6,11 @@ import cfg from '../../config'
 import NewsList from './NewsList'
 import { News } from './NewsListRow'
 
-type Props = {
+type UrlProps = {
   page?: string
 }
+
+type Props = RouteComponentProps<UrlProps>
 
 type State = {
   error?: string
@@ -16,15 +18,13 @@ type State = {
   news: News[]
 }
 
-class NewsPage extends Component<RouteComponentProps<Props>, State> {
-  constructor(props: RouteComponentProps<Props>) {
+class NewsPage extends Component<Props, State> {
+  constructor(props: Props) {
     super(props)
     this.state = { error: undefined, loading: false, news: [] }
   }
 
-  public async componentWillReceiveProps(
-    nextProps: RouteComponentProps<Props>
-  ) {
+  public async componentWillReceiveProps(nextProps: Props) {
     if (nextProps.location.pathname !== this.props.location.pathname) {
       await this.fetchNewspage(this.getPage(nextProps))
     }
@@ -48,7 +48,7 @@ class NewsPage extends Component<RouteComponentProps<Props>, State> {
     }
   }
 
-  public getPage = (props: RouteComponentProps<Props>) =>
+  public getPage = (props: Props) =>
     parseInt(props.match.params.page || '1', 10)
 
   public render() {
@@ -69,13 +69,8 @@ class NewsPage extends Component<RouteComponentProps<Props>, State> {
         <NewsList news={this.state.news} />
 
         <Button.Group attached="bottom" basic={true} size="small">
-          <Button
-            content="Prev"
-            as={Link}
-            to={prevLink}
-            disabled={this.getPage(this.props) < 2}
-          />
-          <Button content="Next" as={Link} to={nextLink} />
+          <Button content="Prev" as={Link} to={prevLink} disabled={page < 2} />
+          <Button content="Next" as={Link} to={nextLink} disabled={page > 9} />
         </Button.Group>
       </div>
     )
