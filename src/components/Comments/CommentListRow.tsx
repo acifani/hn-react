@@ -17,7 +17,7 @@ type Props = {
   comment: Comment
 }
 
-const CommentListRow = ({ comment }: Props) => (
+const CommentListRow: React.SFC<Props> = ({ comment }) => (
   <Comment>
     <Comment.Content>
       <Comment.Author as="a" href={`${cfg.hnBaseUrl}user?id=${comment.user}`}>

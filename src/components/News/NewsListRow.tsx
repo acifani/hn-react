@@ -6,7 +6,8 @@ import cfg from '../../config'
 export type News = {
   title: string
   time_ago: string
-  comments_count: number
+  comments_count?: number
+  content?: string
   points: number
   id: number
   user: string
@@ -35,7 +36,7 @@ class NewsListRow extends Component<Props> {
             <Feed.Date>{n.time_ago}</Feed.Date>
           </Feed.Summary>
           <Feed.Meta>
-            <Feed.Like icon="like" content={n.points} />
+            <Feed.Like icon="heart" content={n.points} />
             <Feed.Like
               icon="comments"
               content={n.comments_count}
