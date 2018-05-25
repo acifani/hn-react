@@ -1,12 +1,12 @@
 import React from 'react'
-import cfg from '../../config'
+import { Link } from 'react-router-dom'
 
 type Props = {
   user: string
 }
 
 const UserLink: React.SFC<Props> = ({ user }) => (
-  <a href={`${cfg.hnBaseUrl}user?id=${user}`}> {user}</a>
+  <Link to={`/user/${user}`}>{user}</Link>
 )
 
 export default UserLink
