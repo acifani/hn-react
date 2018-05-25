@@ -5,6 +5,7 @@ import { Container, Divider, Header } from 'semantic-ui-react'
 import './App.css'
 import { CommentPage } from './Comments'
 import { NewsPage } from './News'
+import { UserPage } from './User'
 
 const App = () => (
   <div>
@@ -19,6 +20,7 @@ const App = () => (
         <Route path="/" exact={true} component={NewsPage} />
         <Route path="/news/:page?" component={NewsPage} />
         <Route path="/comments/:id" component={CommentPage} />
+        <Route path="/user/:userId" component={UserPage} />
       </Switch>
     </Container>
     <Divider />
