@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { Feed } from 'semantic-ui-react'
-import cfg from '../../config'
+import { DomainLink, NewsLink, UserLink } from '../Utils'
 
 export type News = {
   title: string
@@ -19,47 +19,31 @@ type Props = {
   news: News
 }
 
-class NewsListRow extends Component<Props> {
-  public getUrl = (news: News) =>
-    news.url.startsWith('http')
-      ? news.url
-      : `${cfg.hnBaseUrl}item?id=${news.id}`
-
-  public render() {
-    const n = this.props.news
-
-    return (
-      <Feed.Event>
-        <Feed.Content>
-          <Feed.Summary>
-            <a href={this.getUrl(n)}>{n.title}</a>
-            <Feed.Date>{n.time_ago}</Feed.Date>
-          </Feed.Summary>
-          <Feed.Meta>
-            <Feed.Like icon="heart" content={n.points} />
-            <Feed.Like
-              icon="comments"
-              content={n.comments_count}
-              as={Link}
-              to={`/comments/${n.id}`}
-            />
-            <Feed.Like
-              href={`${cfg.hnBaseUrl}user?id=${n.user}`}
-              icon="user"
-              content={n.user}
-            />
-            {n.domain && (
-              <Feed.Like
-                href={`http://${n.domain}`}
-                icon="world"
-                content={n.domain}
-              />
-            )}
-          </Feed.Meta>
-        </Feed.Content>
-      </Feed.Event>
-    )
-  }
-}
+const NewsListRow: React.SFC<Props> = ({ news }) => (
+  <Feed.Event>
+    <Feed.Content>
+      <Feed.Summary>
+        <NewsLink news={news} />
+        <Feed.Date>{news.time_ago}</Feed.Date>
+      </Feed.Summary>
+      <Feed.Meta>
+        <Feed.Like icon="heart" content={news.points} />
+        <Feed.Like
+          icon="comments"
+          content={news.comments_count}
+          as={Link}
+          to={`/comments/${news.id}`}
+        />
+        <Feed.Like icon="user" content={<UserLink user={news.user} />} />
+        {news.domain && (
+          <Feed.Like
+            icon="world"
+            content={<DomainLink domain={news.domain} />}
+          />
+        )}
+      </Feed.Meta>
+    </Feed.Content>
+  </Feed.Event>
+)
 
 export default NewsListRow
