@@ -1,4 +1,5 @@
 import React from 'react'
+import { Icon } from 'semantic-ui-react'
 
 export type User = {
   id: string
@@ -13,9 +14,18 @@ type Props = {
 
 const UserInfo: React.SFC<Props> = ({ user }) => (
   <div>
-    <p>id {user.id}</p>
-    <p>created {user.created}</p>
-    <p>karma {user.karma}</p>
+    <p>
+      <Icon name="user" />
+      {user.id}
+    </p>
+    <p>
+      <Icon name="time" />
+      {user.created}
+    </p>
+    <p>
+      <Icon name="heart" />
+      {user.karma}
+    </p>
     {user.about && <p dangerouslySetInnerHTML={{ __html: user.about }} />}
   </div>
 )
