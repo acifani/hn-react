@@ -1,6 +1,6 @@
 import React from 'react'
 import { Comment } from 'semantic-ui-react'
-import cfg from '../../config'
+import { UserLink } from '../Utils'
 import CommentList from './CommentList'
 
 export type Comment = {
@@ -20,8 +20,8 @@ type Props = {
 const CommentListRow: React.SFC<Props> = ({ comment }) => (
   <Comment>
     <Comment.Content>
-      <Comment.Author as="a" href={`${cfg.hnBaseUrl}user?id=${comment.user}`}>
-        {comment.user}
+      <Comment.Author as="span">
+        {<UserLink user={comment.user} />}
       </Comment.Author>
       <Comment.Metadata>
         <div>{comment.time_ago}</div>
