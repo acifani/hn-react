@@ -6,7 +6,7 @@ type Props = {
 }
 
 const UserLink: React.SFC<Props> = ({ user }) => (
-  <Link to={`/user/${user}`}>{user}</Link>
+  <Link to={`/user/${user}`}> {user}</Link>
 )
 
 export default UserLink
