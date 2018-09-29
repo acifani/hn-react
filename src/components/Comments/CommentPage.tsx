@@ -8,7 +8,7 @@ import { Comment as CommentType } from './CommentListRow'
 import CommentNewsHeader from './CommentNewsHeader'
 
 type UrlProps = {
-  id: number
+  id?: string
 }
 
 type Props = RouteComponentProps<UrlProps>
