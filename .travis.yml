@@ -1,13 +1,13 @@
 language: node_js
 node_js:
-  - "stable"
+  - 'stable'
 cache:
   directories:
-  - node_modules
+    - '$HOME/.npm'
 script:
-  - yarn
-  - yarn test
-  - yarn build
+  - npm ci
+  - npm test
+  - npm run build
 deploy:
   provider: pages
   skip_cleanup: true
