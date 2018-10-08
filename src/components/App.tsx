@@ -1,5 +1,5 @@
-import React from 'react'
-import Loadable from 'react-loadable'
+import * as React from 'react'
+import * as Loadable from 'react-loadable'
 import { Route, Switch } from 'react-router'
 import { Link } from 'react-router-dom'
 import { Container, Divider, Header } from 'semantic-ui-react'
