@@ -5,7 +5,6 @@ cache:
   directories:
     - '$HOME/.npm'
 script:
-  - npm ci
   - npm test
   - npm run build
 deploy:
