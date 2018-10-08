@@ -1,11 +1,25 @@
 import React from 'react'
+import Loadable from 'react-loadable'
 import { Route, Switch } from 'react-router'
 import { Link } from 'react-router-dom'
 import { Container, Divider, Header } from 'semantic-ui-react'
 import './App.css'
-import { CommentPage } from './Comments'
-import { NewsPage } from './News'
-import { UserPage } from './User'
+import { Loading } from './Utils'
+
+const LoadableNewsPage = Loadable({
+  loader: () => import('./News'),
+  loading: Loading
+})
+
+const LoadableCommentPage = Loadable({
+  loader: () => import('./Comments'),
+  loading: Loading
+})
+
+const LoadableUserPage = Loadable({
+  loader: () => import('./User'),
+  loading: Loading
+})
 
 const App = () => (
   <div>
@@ -17,10 +31,10 @@ const App = () => (
     <Divider />
     <Container text={true}>
       <Switch>
-        <Route path="/" exact={true} component={NewsPage} />
-        <Route path="/news/:page?" component={NewsPage} />
-        <Route path="/comments/:id" component={CommentPage} />
-        <Route path="/user/:userId" component={UserPage} />
+        <Route path="/" exact={true} component={LoadableNewsPage} />
+        <Route path="/news/:page?" component={LoadableNewsPage} />
+        <Route path="/comments/:id" component={LoadableCommentPage} />
+        <Route path="/user/:userId" component={LoadableUserPage} />
       </Switch>
     </Container>
     <Divider />

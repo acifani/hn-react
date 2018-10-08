@@ -1,1 +1,1 @@
-export { default as CommentPage } from './CommentPage'
+export { default } from './CommentPage'
