@@ -1,5 +1,5 @@
 import React from 'react'
-import { Item, List } from 'semantic-ui-react'
+import { Icon, Item, List } from 'semantic-ui-react'
 import { News } from '../News/NewsListRow'
 import { DomainLink, NewsLink, UserLink } from '../Utils'
 
@@ -17,14 +17,20 @@ const CommentNewsHeader: React.SFC<Props> = ({ news }) => (
         </Item.Description>
         <Item.Extra>
           <List horizontal={true} verticalAlign="middle">
-            <List.Item icon="time" content={news.time_ago} />
-            <List.Item icon="heart" content={news.points} />
-            <List.Item icon="user" content={<UserLink user={news.user} />} />
+            <List.Item>
+              <Icon name="time" /> {news.time_ago}
+            </List.Item>
+            <List.Item>
+              <Icon name="heart" /> {news.points}
+            </List.Item>
+            <List.Item>
+              <Icon name="user" /> {<UserLink user={news.user} />}
+            </List.Item>
             {news.domain && (
-              <List.Item
-                icon="world"
-                content={<DomainLink domain={news.domain} />}
-              />
+              <List.Item>
+                <Icon name="world" />
+                {<DomainLink domain={news.domain} />}
+              </List.Item>
             )}
           </List>
         </Item.Extra>
