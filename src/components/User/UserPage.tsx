@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { Reducer, useEffect, useReducer } from 'react'
 import { RouteComponentProps } from 'react-router'
 import { Dimmer, Loader, Message } from 'semantic-ui-react'
 import cfg from '../../config'
@@ -10,29 +10,65 @@ type UrlProps = {
 
 type Props = RouteComponentProps<UrlProps>
 
+type State = {
+  error?: string
+  loading: boolean
+  user: User
+}
+
+enum ActionType {
+  FetchStart = 'fetch_start',
+  FetchSuccess = 'fetch_success',
+  FetchFail = 'fetch_fail'
+}
+
+type Action = {
+  payload?: any
+  type: ActionType
+}
+
+const userReducer: Reducer<State, Action> = (state, action) => {
+  switch (action.type) {
+    case ActionType.FetchStart:
+      return {
+        ...state,
+        loading: true
+      }
+    case ActionType.FetchFail:
+      return {
+        error: action.payload,
+        loading: false,
+        user: {} as User
+      }
+    case ActionType.FetchSuccess:
+      return {
+        error: undefined,
+        loading: false,
+        user: action.payload
+      }
+    default:
+      return state
+  }
+}
+
 const UserPage: React.SFC<Props> = props => {
-  const [error, setError] = useState<string>()
-  const [loading, setLoading] = useState(false)
-  const [user, setUser] = useState<User>({} as User)
+  const [state, dispatch] = useReducer(userReducer, {
+    error: undefined,
+    loading: false,
+    user: {} as User
+  })
 
   useEffect(() => {
     const fetchUser = async () => {
-      try {
-        setLoading(true)
-        const response = await fetch(
-          `${cfg.apiBaseUrl}user/${props.match.params.userId}`
-        )
-        if (!response.ok) {
-          throw new Error(response.statusText)
-        }
-        const data = await response.json()
-        setError(undefined)
-        setLoading(false)
-        setUser(data)
-      } catch (error) {
-        setError(error.message)
-        setLoading(false)
+      dispatch({ type: ActionType.FetchStart })
+      const response = await fetch(
+        `${cfg.apiBaseUrl}user/${props.match.params.userId}`
+      )
+      if (!response.ok) {
+        dispatch({ payload: response.statusText, type: ActionType.FetchFail })
       }
+      const data = await response.json()
+      dispatch({ payload: data, type: ActionType.FetchSuccess })
     }
 
     fetchUser()
@@ -40,15 +76,15 @@ const UserPage: React.SFC<Props> = props => {
 
   return (
     <div>
-      <Dimmer active={loading}>
+      <Dimmer active={state.loading}>
         <Loader>Fetching user</Loader>
       </Dimmer>
 
-      <Message error={true} hidden={!error}>
-        Error while fetching user: {error}
+      <Message error={true} hidden={!state.error}>
+        Error while fetching user: {state.error}
       </Message>
 
-      <UserInfo user={user} />
+      <UserInfo user={state.user} />
     </div>
   )
 }
