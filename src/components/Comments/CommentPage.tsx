@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { useEffect, useState } from 'react'
 import { RouteComponentProps } from 'react-router'
 import { Dimmer, Loader, Message } from 'semantic-ui-react'
 import cfg from '../../config'
@@ -13,38 +13,27 @@ type UrlProps = {
 
 type Props = RouteComponentProps<UrlProps>
 
-type State = {
-  error?: string
-  loading: boolean
-  comments: CommentType[]
-  news: News
-}
+const CommentPage: React.SFC<Props> = props => {
+  const [error, setError] = useState<string>()
+  const [loading, setLoading] = useState(false)
+  const [comments, setComments] = useState<CommentType[]>([])
+  const [news, setNews] = useState<News>({} as News)
 
-class CommentPage extends PureComponent<Props, State> {
-  constructor(props: Props) {
-    super(props)
-    this.state = { loading: false, comments: [], news: {} as News }
-  }
-
-  public componentDidMount() {
-    this.fetchComments()
-  }
-
-  public fetchComments = async () => {
-    try {
-      this.setState({ ...this.state, loading: true })
-      const response = await fetch(
-        `${cfg.apiBaseUrl}item/${this.props.match.params.id}`
-      )
-      if (!response.ok) {
-        throw new Error(response.statusText)
-      }
-      const data = await response.json()
-      this.setState({
-        comments: data.comments,
-        error: undefined,
-        loading: false,
-        news: {
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        setLoading(true)
+        const response = await fetch(
+          `${cfg.apiBaseUrl}item/${props.match.params.id}`
+        )
+        if (!response.ok) {
+          throw new Error(response.statusText)
+        }
+        const data = await response.json()
+        setLoading(false)
+        setError(undefined)
+        setComments(data.comments)
+        setNews({
           content: data.content,
           domain: data.domain,
           id: data.id,
@@ -53,29 +42,31 @@ class CommentPage extends PureComponent<Props, State> {
           title: data.title,
           url: data.url,
           user: data.user
-        }
-      })
-    } catch (error) {
-      this.setState({ comments: [], loading: false, error: error.message })
+        })
+      } catch (error) {
+        setComments([])
+        setLoading(false)
+        setError(error.message)
+      }
     }
-  }
 
-  public render() {
-    return (
-      <div>
-        <Dimmer active={this.state.loading}>
-          <Loader>Fetching comments</Loader>
-        </Dimmer>
+    fetchComments()
+  }, [])
 
-        <Message error={true} hidden={!this.state.error}>
-          Error while fetching comments: {this.state.error}
-        </Message>
+  return (
+    <div>
+      <Dimmer active={loading}>
+        <Loader>Fetching comments</Loader>
+      </Dimmer>
 
-        <CommentNewsHeader news={this.state.news} />
-        <CommentList comments={this.state.comments} />
-      </div>
-    )
-  }
+      <Message error={true} hidden={!error}>
+        Error while fetching comments: {error}
+      </Message>
+
+      <CommentNewsHeader news={news} />
+      <CommentList comments={comments} />
+    </div>
+  )
 }
 
 export default CommentPage

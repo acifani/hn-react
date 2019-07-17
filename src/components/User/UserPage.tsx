@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { useEffect, useState } from 'react'
 import { RouteComponentProps } from 'react-router'
 import { Dimmer, Loader, Message } from 'semantic-ui-react'
 import cfg from '../../config'
@@ -10,57 +10,47 @@ type UrlProps = {
 
 type Props = RouteComponentProps<UrlProps>
 
-type State = {
-  error?: string
-  loading: boolean
-  user: User
-}
+const UserPage: React.SFC<Props> = props => {
+  const [error, setError] = useState<string>()
+  const [loading, setLoading] = useState(false)
+  const [user, setUser] = useState<User>({} as User)
 
-class UserPage extends PureComponent<Props, State> {
-  constructor(props: Props) {
-    super(props)
-    this.state = { loading: false, user: {} as User }
-  }
-
-  public componentDidMount() {
-    this.fetchUser()
-  }
-
-  public fetchUser = async () => {
-    try {
-      this.setState({ ...this.state, loading: true })
-      const response = await fetch(
-        `${cfg.apiBaseUrl}user/${this.props.match.params.userId}`
-      )
-      if (!response.ok) {
-        throw new Error(response.statusText)
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        setLoading(true)
+        const response = await fetch(
+          `${cfg.apiBaseUrl}user/${props.match.params.userId}`
+        )
+        if (!response.ok) {
+          throw new Error(response.statusText)
+        }
+        const data = await response.json()
+        setError(undefined)
+        setLoading(false)
+        setUser(data)
+      } catch (error) {
+        setError(error.message)
+        setLoading(false)
       }
-      const data = await response.json()
-      this.setState({
-        error: undefined,
-        loading: false,
-        user: data
-      })
-    } catch (error) {
-      this.setState({ loading: false, error: error.message })
     }
-  }
 
-  public render() {
-    return (
-      <div>
-        <Dimmer active={this.state.loading}>
-          <Loader>Fetching user</Loader>
-        </Dimmer>
+    fetchUser()
+  }, [])
 
-        <Message error={true} hidden={!this.state.error}>
-          Error while fetching user: {this.state.error}
-        </Message>
+  return (
+    <div>
+      <Dimmer active={loading}>
+        <Loader>Fetching user</Loader>
+      </Dimmer>
 
-        <UserInfo user={this.state.user} />
-      </div>
-    )
-  }
+      <Message error={true} hidden={!error}>
+        Error while fetching user: {error}
+      </Message>
+
+      <UserInfo user={user} />
+    </div>
+  )
 }
 
 export default UserPage
