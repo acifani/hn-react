@@ -5,8 +5,13 @@ type Props = {
   user: string
 }
 
-const UserLink: React.SFC<Props> = ({ user }) => (
-  <Link to={`/user/${user}`}> {user}</Link>
+const loadUserPage = () => import(/* webpackPrefetch: true */ '../User')
+
+const UserLink: React.FC<Props> = ({ user }) => (
+  <Link to={`/user/${user}`} onMouseOver={loadUserPage}>
+    {' '}
+    {user}
+  </Link>
 )
 
 export default UserLink
