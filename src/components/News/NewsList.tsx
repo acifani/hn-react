@@ -1,13 +1,14 @@
 import React from 'react'
 import { Feed } from 'semantic-ui-react'
-import NewsListRow, { News } from './NewsListRow'
+import NewsListRow from './NewsListRow'
 
 type Props = {
-  news: News[]
+  resource: any
 }
 
-const NewsList: React.FC<Props> = props => {
-  const news = props.news.map(p => <NewsListRow news={p} key={p.id} />)
+const NewsList: React.FC<Props> = ({ resource }) => {
+  const data = resource.read()
+  const news = data.map((p: any) => <NewsListRow news={p} key={p.id} />)
 
   return <Feed size="large">{news}</Feed>
 }

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+// @ts-ignore
+import React, { Suspense, useEffect, useState, useTransition } from 'react'
 import { RouteComponentProps } from 'react-router'
 import { Link } from 'react-router-dom'
-import { Button, Dimmer, Loader, Message } from 'semantic-ui-react'
-import cfg from '../../config'
+import { Button } from 'semantic-ui-react'
+import { fetchNewspage } from '../../api'
 import NewsList from './NewsList'
-import { News } from './NewsListRow'
+import { Loading, ErrorBoundary, ErrorMessage } from '../Utils'
 
 type UrlProps = {
   page?: string
@@ -13,47 +14,19 @@ type UrlProps = {
 type Props = RouteComponentProps<UrlProps>
 
 const NewsPage: React.FC<Props> = props => {
-  const [error, setError] = useState<string>()
-  const [loading, setLoading] = useState(false)
-  const [news, setNews] = useState<News[]>([])
   const page = parseInt(props.match.params.page || '1', 10)
-
-  useEffect(() => {
-    const fetchNewspage = async () => {
-      try {
-        setLoading(true)
-        const response = await fetch(`${cfg.apiBaseUrl}news?page=${page}`)
-        if (!response.ok) {
-          throw new Error(response.statusText)
-        }
-        const data = await response.json()
-        setLoading(false)
-        setError(undefined)
-        setNews(data)
-      } catch (error) {
-        setLoading(false)
-        setError(error.message)
-        setNews([])
-      }
-    }
-
-    fetchNewspage()
-  }, [page])
+  const resource = fetchNewspage(page)
 
   const prevLink = page > 1 ? `/news/${page - 1}` : '/'
   const nextLink = page ? `/news/${page + 1}` : '/news/2'
 
   return (
     <div>
-      <Dimmer active={loading}>
-        <Loader>Fetching posts</Loader>
-      </Dimmer>
-
-      <Message error={true} hidden={!error}>
-        Error while fetching posts: {error}
-      </Message>
-
-      <NewsList news={news} />
+      <ErrorBoundary fallback={<ErrorMessage error="Could not fetch posts" />}>
+        <Suspense fallback={<Loading message="Fetching posts" />}>
+          <NewsList resource={resource} />
+        </Suspense>
+      </ErrorBoundary>
 
       <Button.Group attached="bottom" basic={true} size="small">
         <Button content="Prev" as={Link} to={prevLink} disabled={page < 2} />
