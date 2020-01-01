@@ -1,25 +1,13 @@
 import * as React from 'react'
-import * as Loadable from 'react-loadable'
 import { Route, Switch } from 'react-router'
 import { Link } from 'react-router-dom'
 import { Container, Divider, Header } from 'semantic-ui-react'
 import './App.css'
 import { Loading } from './Utils'
 
-const LoadableNewsPage = Loadable({
-  loader: () => import('./News'),
-  loading: Loading
-})
-
-const LoadableCommentPage = Loadable({
-  loader: () => import('./Comments'),
-  loading: Loading
-})
-
-const LoadableUserPage = Loadable({
-  loader: () => import('./User'),
-  loading: Loading
-})
+const LoadableNewsPage = React.lazy(() => import('./News'))
+const LoadableCommentPage = React.lazy(() => import('./Comments'))
+const LoadableUserPage = React.lazy(() => import('./User'))
 
 const App = () => (
   <div>
@@ -29,14 +17,16 @@ const App = () => (
       </Header>
     </Container>
     <Divider />
-    <Container text={true}>
-      <Switch>
-        <Route path="/" exact={true} component={LoadableNewsPage} />
-        <Route path="/news/:page?" component={LoadableNewsPage} />
-        <Route path="/comments/:id" component={LoadableCommentPage} />
-        <Route path="/user/:userId" component={LoadableUserPage} />
-      </Switch>
-    </Container>
+    <React.Suspense fallback={<Loading />}>
+      <Container text={true}>
+        <Switch>
+          <Route path="/" exact={true} component={LoadableNewsPage} />
+          <Route path="/news/:page?" component={LoadableNewsPage} />
+          <Route path="/comments/:id" component={LoadableCommentPage} />
+          <Route path="/user/:userId" component={LoadableUserPage} />
+        </Switch>
+      </Container>
+    </React.Suspense>
     <Divider />
     <Container textAlign="center" className="Footer">
       <p>
