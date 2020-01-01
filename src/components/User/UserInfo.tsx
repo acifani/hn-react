@@ -12,7 +12,7 @@ type Props = {
   user: User
 }
 
-const UserInfo: React.SFC<Props> = ({ user }) => (
+const UserInfo: React.FC<Props> = ({ user }) => (
   <div>
     <p>
       <Icon name="user" />

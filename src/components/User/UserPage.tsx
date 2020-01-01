@@ -51,7 +51,7 @@ const userReducer: Reducer<State, Action> = (state, action) => {
   }
 }
 
-const UserPage: React.SFC<Props> = props => {
+const UserPage: React.FC<Props> = props => {
   const [state, dispatch] = useReducer(userReducer, {
     error: undefined,
     loading: false,

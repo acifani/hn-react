@@ -4,7 +4,7 @@ type Props = {
   domain: string
 }
 
-const DomainLink: React.SFC<Props> = ({ domain }) => (
+const DomainLink: React.FC<Props> = ({ domain }) => (
   <a href={`http://${domain}`}> {domain} </a>
 )
 

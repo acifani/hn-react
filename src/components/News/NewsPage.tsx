@@ -12,7 +12,7 @@ type UrlProps = {
 
 type Props = RouteComponentProps<UrlProps>
 
-const NewsPage: React.SFC<Props> = props => {
+const NewsPage: React.FC<Props> = props => {
   const [error, setError] = useState<string>()
   const [loading, setLoading] = useState(false)
   const [news, setNews] = useState<News[]>([])

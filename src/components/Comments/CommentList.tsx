@@ -6,7 +6,7 @@ type Props = {
   comments: CommentType[]
 }
 
-const CommentList: React.SFC<Props> = props => {
+const CommentList: React.FC<Props> = props => {
   const comments = props.comments.map(c => (
     <CommentListRow key={c.id} comment={c} />
   ))

@@ -13,7 +13,7 @@ type UrlProps = {
 
 type Props = RouteComponentProps<UrlProps>
 
-const CommentPage: React.SFC<Props> = props => {
+const CommentPage: React.FC<Props> = props => {
   const [error, setError] = useState<string>()
   const [loading, setLoading] = useState(false)
   const [comments, setComments] = useState<CommentType[]>([])

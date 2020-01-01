@@ -6,7 +6,7 @@ type Props = {
   news: News[]
 }
 
-const NewsList: React.SFC<Props> = props => {
+const NewsList: React.FC<Props> = props => {
   const news = props.news.map(p => <NewsListRow news={p} key={p.id} />)
 
   return <Feed size="large">{news}</Feed>
