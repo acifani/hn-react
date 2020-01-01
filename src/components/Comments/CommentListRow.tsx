@@ -1,7 +1,7 @@
 import React from 'react'
 import { Comment } from 'semantic-ui-react'
 import { UserLink } from '../Utils'
-import CommentList from './CommentList'
+import { CommentListComponent } from './CommentList'
 
 export type Comment = {
   id: number
@@ -30,7 +30,7 @@ const CommentListRow: React.FC<Props> = ({ comment }) => (
         <div dangerouslySetInnerHTML={{ __html: comment.content }} />
       </Comment.Text>
     </Comment.Content>
-    {comment.comments && <CommentList comments={comment.comments} />}
+    {comment.comments && <CommentListComponent comments={comment.comments} />}
   </Comment>
 )
 

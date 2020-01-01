@@ -8,6 +8,17 @@ export function fetchNewspage(page?: number) {
   return wrapPromise(promise)
 }
 
+export function fetchComments(id: string) {
+  const promise = fetch(`${config.apiBaseUrl}item/${id}`).then(res =>
+    res.json()
+  )
+
+  return {
+    news: wrapPromise(promise),
+    comments: wrapPromise(promise)
+  }
+}
+
 function wrapPromise(promise: Promise<unknown>) {
   let status = 'pending'
   let result: unknown

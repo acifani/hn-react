@@ -1,12 +1,12 @@
 import React from 'react'
-import { Dimmer, Loader } from 'semantic-ui-react'
+import { Loader } from 'semantic-ui-react'
 
 type Props = {
   message?: string
 }
 
 export default ({ message }: Props) => (
-  <Dimmer active={true}>
-    <Loader>{message || 'Loading'}</Loader>
-  </Dimmer>
+  <Loader active={true} inline="centered">
+    {message || 'Loading'}
+  </Loader>
 )
