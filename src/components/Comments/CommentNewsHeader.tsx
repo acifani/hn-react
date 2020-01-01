@@ -7,7 +7,7 @@ type Props = {
   news: News
 }
 
-const CommentNewsHeader: React.SFC<Props> = ({ news }) => (
+const CommentNewsHeader: React.FC<Props> = ({ news }) => (
   <Item.Group>
     <Item>
       <Item.Content>

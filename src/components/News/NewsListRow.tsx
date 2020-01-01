@@ -19,7 +19,7 @@ type Props = {
   news: News
 }
 
-const NewsListRow: React.SFC<Props> = ({ news }) => (
+const NewsListRow: React.FC<Props> = ({ news }) => (
   <Feed.Event>
     <Feed.Content>
       <Feed.Summary>

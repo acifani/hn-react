@@ -17,7 +17,7 @@ type Props = {
   comment: Comment
 }
 
-const CommentListRow: React.SFC<Props> = ({ comment }) => (
+const CommentListRow: React.FC<Props> = ({ comment }) => (
   <Comment>
     <Comment.Content>
       <Comment.Author as="span">
