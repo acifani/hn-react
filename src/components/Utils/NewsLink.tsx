@@ -6,11 +6,17 @@ type Props = {
   news: News
 }
 
-const NewsLink: React.SFC<Props> = ({ news }) => {
+const loadCommentsPage = () => import(/* webpackPrefetch: true */ '../Comments')
+
+const NewsLink: React.FC<Props> = ({ news }) => {
   if (news.url && news.url.startsWith('http')) {
     return <a href={news.url}>{news.title}</a>
   } else {
-    return <Link to={`/comments/${news.id}`}>{news.title}</Link>
+    return (
+      <Link to={`/comments/${news.id}`} onMouseOver={loadCommentsPage}>
+        {news.title}
+      </Link>
+    )
   }
 }
 
