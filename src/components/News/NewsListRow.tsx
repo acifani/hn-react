@@ -1,18 +1,19 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Feed } from 'semantic-ui-react'
+import { Feed, Icon, Label } from 'semantic-ui-react'
 import { DomainLink, NewsLink, UserLink } from '../Utils'
 
 export type News = {
-  title: string
-  time_ago: string
-  comments_count?: number
+  comments_count: number
   content?: string
-  points: number
-  id: number
-  user: string
   domain: string
+  id: number
+  points: number | null
+  time_ago: string
+  title: string
+  type: 'link' | 'ask' | 'job'
   url: string
+  user: string | null
 }
 
 type Props = {
@@ -23,18 +24,31 @@ const NewsListRow: React.FC<Props> = ({ news }) => (
   <Feed.Event>
     <Feed.Content>
       <Feed.Summary>
+        {news.type === 'ask' && (
+          <Label color="orange" ribbon>
+            ask
+          </Label>
+        )}
+        {news.type === 'job' && (
+          <Label color="green" ribbon>
+            job
+          </Label>
+        )}
         <NewsLink news={news} />
         <Feed.Date>{news.time_ago}</Feed.Date>
       </Feed.Summary>
       <Feed.Meta>
-        <Feed.Like icon="heart" content={news.points} />
+        {news.points != null && <Icon name="like" />}
+        {news.points}
         <Feed.Like
           icon="comments"
           content={news.comments_count}
           as={Link}
           to={`/comments/${news.id}`}
         />
-        <Feed.Like icon="user" content={<UserLink user={news.user} />} />
+        {news.user && (
+          <Feed.Like icon="user" content={<UserLink user={news.user} />} />
+        )}
         {news.domain && (
           <Feed.Like
             icon="world"
