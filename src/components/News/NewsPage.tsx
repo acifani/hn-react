@@ -3,7 +3,6 @@ import React, { Suspense } from 'react'
 import { RouteComponentProps } from 'react-router'
 import { Link } from 'react-router-dom'
 import { Button } from 'semantic-ui-react'
-import { fetchNewspage } from '../../api'
 import { ErrorBoundary, ErrorMessage, Loading } from '../Utils'
 import NewsList from './NewsList'
 
@@ -15,7 +14,6 @@ type Props = RouteComponentProps<UrlProps>
 
 const NewsPage: React.FC<Props> = props => {
   const page = parseInt(props.match.params.page || '1', 10)
-  const resource = fetchNewspage(page)
 
   const prevLink = page > 1 ? `/news/${page - 1}` : '/'
   const nextLink = page ? `/news/${page + 1}` : '/news/2'
@@ -24,7 +22,7 @@ const NewsPage: React.FC<Props> = props => {
     <div>
       <ErrorBoundary fallback={<ErrorMessage error="Could not fetch posts" />}>
         <Suspense fallback={<Loading message="Fetching posts" />}>
-          <NewsList resource={resource} />
+          <NewsList page={page} />
         </Suspense>
       </ErrorBoundary>
 
