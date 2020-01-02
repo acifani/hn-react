@@ -5,11 +5,10 @@ import App from './App'
 
 it('renders without crashing', () => {
   const div = document.createElement('div')
-  ReactDOM.render(
+  // @ts-ignore
+  ReactDOM.createRoot(div).render(
     <MemoryRouter>
       <Route component={App} />
-    </MemoryRouter>,
-    div
+    </MemoryRouter>
   )
-  ReactDOM.unmountComponentAtNode(div)
 })
