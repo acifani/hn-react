@@ -1,7 +1,7 @@
 // @ts-ignore
 import React, { Suspense, SuspenseList } from 'react'
 import { RouteComponentProps } from 'react-router'
-import { fetchComments } from 'src/api'
+import { fetchComments } from '../../api'
 import { ErrorBoundary, ErrorMessage, Loading } from '../Utils'
 import CommentList from './CommentList'
 import CommentNewsHeader from './CommentNewsHeader'

@@ -5,7 +5,7 @@ import 'semantic-ui-css/semantic.min.css'
 import App from './components/App'
 import ScrollToTop from './components/ScrollToTop'
 import './index.css'
-import registerServiceWorker from './registerServiceWorker'
+import * as serviceWorker from './serviceWorker'
 
 // @ts-ignore
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -17,4 +17,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </BrowserRouter>
   </StrictMode>
 )
-registerServiceWorker()
+
+serviceWorker.register()

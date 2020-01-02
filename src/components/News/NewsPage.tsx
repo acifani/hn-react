@@ -3,7 +3,7 @@ import React, { Suspense, useEffect, useState, useTransition } from 'react'
 import { RouteComponentProps } from 'react-router'
 import { Link } from 'react-router-dom'
 import { Button } from 'semantic-ui-react'
-import { fetchNewspage } from 'src/api'
+import { fetchNewspage } from '../../api'
 import { ErrorBoundary, ErrorMessage, Loading } from '../Utils'
 import NewsList from './NewsList'
 
