@@ -19,7 +19,7 @@ type State = {
 enum ActionType {
   FetchStart = 'fetch_start',
   FetchSuccess = 'fetch_success',
-  FetchFail = 'fetch_fail'
+  FetchFail = 'fetch_fail',
 }
 
 type Action = {
@@ -32,19 +32,19 @@ const userReducer: Reducer<State, Action> = (state, action) => {
     case ActionType.FetchStart:
       return {
         ...state,
-        loading: true
+        loading: true,
       }
     case ActionType.FetchFail:
       return {
         error: action.payload,
         loading: false,
-        user: {} as User
+        user: {} as User,
       }
     case ActionType.FetchSuccess:
       return {
         error: undefined,
         loading: false,
-        user: action.payload
+        user: action.payload,
       }
     default:
       return state
@@ -55,7 +55,7 @@ const UserPage: React.FC<Props> = props => {
   const [state, dispatch] = useReducer(userReducer, {
     error: undefined,
     loading: false,
-    user: {} as User
+    user: {} as User,
   })
 
   useEffect(() => {
@@ -72,7 +72,7 @@ const UserPage: React.FC<Props> = props => {
     }
 
     fetchUser()
-  }, [])
+  }, [props.match.params.userId])
 
   return (
     <div>
