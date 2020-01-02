@@ -30,9 +30,12 @@ const App = () => (
     <Divider />
     <Container textAlign="center" className="Footer">
       <p>
-        Made with ❤️ by <a href="https://cifani.me">Alessandro Cifani</a>.
-        Source code available on{' '}
-        <a href="https://github.com/acifani/yahnc">GitHub</a>.
+        Made with{' '}
+        <span role="img" aria-label="Love">
+          ❤️
+        </span>{' '}
+        by <a href="https://cifani.me">Alessandro Cifani</a>. Source code
+        available on <a href="https://github.com/acifani/yahnc">GitHub</a>.
       </p>
     </Container>
   </div>
