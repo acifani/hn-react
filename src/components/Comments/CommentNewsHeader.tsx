@@ -1,13 +1,14 @@
 import React from 'react'
 import { Icon, Item, List } from 'semantic-ui-react'
 import { DomainLink, NewsLink, UserLink } from '../Utils'
+import { commentsResource } from '../../api'
 
 type Props = {
-  resource: any
+  id: string
 }
 
-const CommentNewsHeader: React.FC<Props> = ({ resource }) => {
-  const news = resource.read()
+const CommentNewsHeader: React.FC<Props> = ({ id }) => {
+  const news = commentsResource.read(id)
 
   return (
     <Item.Group>

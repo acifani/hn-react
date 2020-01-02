@@ -1,48 +1,10 @@
 import config from './config'
+import { unstable_createResource } from './lib/react-cache'
 
-export function fetchNewspage(page?: number) {
-  const promise = fetch(
-    `${config.apiBaseUrl}news?page=${page || 1}`
-  ).then(res => res.json())
+export const newspageResource = unstable_createResource((page?: number) =>
+  fetch(`${config.apiBaseUrl}news?page=${page || 1}`).then(res => res.json())
+)
 
-  return wrapPromise(promise)
-}
-
-export function fetchComments(id: string) {
-  const promise = fetch(`${config.apiBaseUrl}item/${id}`).then(res =>
-    res.json()
-  )
-
-  return {
-    comments: wrapPromise(promise),
-    news: wrapPromise(promise),
-  }
-}
-
-function wrapPromise(promise: Promise<unknown>) {
-  let status = 'pending'
-  let result: unknown
-
-  const suspender = promise.then(
-    res => {
-      status = 'success'
-      result = res
-    },
-    err => {
-      status = 'error'
-      result = err
-    }
-  )
-
-  return {
-    read() {
-      if (status === 'pending') {
-        throw suspender
-      } else if (status === 'error') {
-        throw result
-      } else if (status === 'success') {
-        return result
-      }
-    },
-  }
-}
+export const commentsResource = unstable_createResource((id: string) =>
+  fetch(`${config.apiBaseUrl}item/${id}`).then(res => res.json())
+)

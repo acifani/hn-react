@@ -1,6 +1,6 @@
 import * as React from 'react'
 // @ts-ignore
-import { createRoot, render, unmountComponentAtNode } from 'react-dom'
+import { createRoot, unmountComponentAtNode } from 'react-dom'
 import { act } from 'react-dom/test-utils'
 import { MemoryRouter, Route } from 'react-router'
 import App from './App'
