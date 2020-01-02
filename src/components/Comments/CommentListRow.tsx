@@ -18,20 +18,23 @@ type Props = {
 }
 
 const CommentListRow: React.FC<Props> = ({ comment }) => (
-  <Comment>
-    <Comment.Content>
-      <Comment.Author as="span">
-        {<UserLink user={comment.user} />}
-      </Comment.Author>
-      <Comment.Metadata>
-        <div>{comment.time_ago}</div>
-      </Comment.Metadata>
-      <Comment.Text>
-        <div dangerouslySetInnerHTML={{ __html: comment.content }} />
-      </Comment.Text>
-    </Comment.Content>
-    {comment.comments && <CommentListComponent comments={comment.comments} />}
-  </Comment>
+  <Comment.Group threaded={!!comment.comments}>
+    <Comment>
+      <Comment.Avatar
+        src={`https://avatars.dicebear.com/v2/identicon/${comment.user}.svg`}
+      ></Comment.Avatar>
+      <Comment.Content>
+        <Comment.Author as="a">
+          {<UserLink user={comment.user} />}
+        </Comment.Author>
+        <Comment.Metadata as="span">{comment.time_ago}</Comment.Metadata>
+        <Comment.Text>
+          <div dangerouslySetInnerHTML={{ __html: comment.content }} />
+        </Comment.Text>
+      </Comment.Content>
+      {comment.comments && <CommentListComponent comments={comment.comments} />}
+    </Comment>
+  </Comment.Group>
 )
 
 export default CommentListRow

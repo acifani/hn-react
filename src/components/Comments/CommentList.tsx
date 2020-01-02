@@ -1,5 +1,4 @@
 import React from 'react'
-import { Comment } from 'semantic-ui-react'
 import CommentListRow, { Comment as CommentType } from './CommentListRow'
 import { commentsResource } from '../../api'
 
@@ -21,7 +20,7 @@ export const CommentListComponent = ({ comments }: ListProps) => {
     <CommentListRow key={c.id} comment={c} />
   ))
 
-  return <Comment.Group>{children}</Comment.Group>
+  return <>{children}</>
 }
 
 export default CommentList
