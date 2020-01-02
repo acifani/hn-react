@@ -14,8 +14,8 @@ export function fetchComments(id: string) {
   )
 
   return {
+    comments: wrapPromise(promise),
     news: wrapPromise(promise),
-    comments: wrapPromise(promise)
   }
 }
 
@@ -43,6 +43,6 @@ function wrapPromise(promise: Promise<unknown>) {
       } else if (status === 'success') {
         return result
       }
-    }
+    },
   }
 }
