@@ -40,12 +40,14 @@ const NewsListRow: React.FC<Props> = ({ news }) => (
       <Feed.Meta>
         {news.points != null && <Icon name="like" />}
         {news.points}
-        <Feed.Like
-          icon="comments"
-          content={news.comments_count}
-          as={Link}
-          to={`/comments/${news.id}`}
-        />
+        {news.type !== 'job' && (
+          <Feed.Like
+            icon="comments"
+            content={news.comments_count}
+            as={Link}
+            to={`/comments/${news.id}`}
+          />
+        )}
         {news.user && (
           <Feed.Like icon="user" content={<UserLink user={news.user} />} />
         )}
