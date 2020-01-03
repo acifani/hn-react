@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon } from 'semantic-ui-react'
+import { Icon, Card, Image } from 'semantic-ui-react'
 import { userResource } from '../../api'
 
 export type User = {
@@ -15,24 +15,25 @@ type Props = {
 }
 
 const UserInfo: React.FC<Props> = ({ id }) => {
-  const user = userResource.read(id)
+  const user: User = userResource.read(id)
 
   return (
-    <div>
-      <p>
-        <Icon name="user" />
-        {user.id}
-      </p>
-      <p>
-        <Icon name="time" />
-        {user.created}
-      </p>
-      <p>
-        <Icon name="heart" />
-        {user.karma}
-      </p>
-      {user.about && <p dangerouslySetInnerHTML={{ __html: user.about }} />}
-    </div>
+    <>
+      <Card>
+        <Image
+          src={`https://avatars.dicebear.com/v2/identicon/${user.id}.svg`}
+        />
+        <Card.Content>
+          <Card.Header>{user.id}</Card.Header>
+          <Card.Meta>Joined {user.created}</Card.Meta>
+        </Card.Content>
+        <Card.Content extra>
+          <Icon name="like" />
+          {user.karma} points
+        </Card.Content>
+      </Card>
+      <p dangerouslySetInnerHTML={{ __html: user.about || '' }} />
+    </>
   )
 }
 

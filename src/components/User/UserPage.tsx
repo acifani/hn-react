@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react'
 import { RouteComponentProps } from 'react-router'
 import UserInfo from './UserInfo'
-import { ErrorBoundary, ErrorMessage, Loading } from '../Utils'
+import { ErrorBoundary, ErrorMessage, UserSkeleton } from '../Utils'
 
 type UrlProps = {
   userId?: string
@@ -19,7 +19,7 @@ const UserPage: React.FC<Props> = props => {
     <ErrorBoundary
       fallback={<ErrorMessage error="Could not fetch user info" />}
     >
-      <Suspense fallback={<Loading message="Fetching user info" />}>
+      <Suspense fallback={<UserSkeleton />}>
         <UserInfo id={id} />
       </Suspense>
     </ErrorBoundary>
