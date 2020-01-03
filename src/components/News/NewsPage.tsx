@@ -28,12 +28,12 @@ const NewsPage: React.FC<Props> = props => {
   )
 }
 
-const Skeleton = () => (
+const Skeleton = React.memo(() => (
   <>
-    {[...Array(10)].map(() => (
-      <PostSkeleton />
+    {[...Array(10)].map((_, idx) => (
+      <PostSkeleton key={idx} />
     ))}
   </>
-)
+))
 
 export default NewsPage

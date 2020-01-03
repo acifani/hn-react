@@ -38,12 +38,12 @@ const CommentPage: React.FC<Props> = props => {
   )
 }
 
-const CommentsSkeleton = () => (
+const CommentsSkeleton = React.memo(() => (
   <>
-    {[...Array(5)].map(() => (
-      <CommentSkeleton />
+    {[...Array(5)].map((_, idx) => (
+      <CommentSkeleton key={idx} />
     ))}
   </>
-)
+))
 
 export default CommentPage
