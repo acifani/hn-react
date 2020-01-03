@@ -15,7 +15,7 @@ export default function NotFound() {
         </Button>
       </Segment.Inline>
       <br />
-      <Image src="https://i.imgur.com/V9Ph9n2.png" />
+      <Image src="/404.png" />
     </Segment>
   )
 }
