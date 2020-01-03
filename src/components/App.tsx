@@ -8,13 +8,14 @@ import { Loading } from './Utils'
 const LoadableNewsPage = React.lazy(() => import('./News'))
 const LoadableCommentPage = React.lazy(() => import('./Comments'))
 const LoadableUserPage = React.lazy(() => import('./User'))
+const LoadableNotFoundPage = React.lazy(() => import('./Utils/NotFound'))
 
 const App = () => (
   <>
     <TopMenu />
     <Container text style={{ marginTop: '1em' }} as="main">
-      <Switch>
-        <React.Suspense fallback={<Loading />}>
+      <React.Suspense fallback={<Loading />}>
+        <Switch>
           <Route path="/" exact component={LoadableNewsPage} />
           <Route path="/comments/:id" component={LoadableCommentPage} />
           <Route path="/user/:userId" component={LoadableUserPage} />
@@ -22,8 +23,9 @@ const App = () => (
             path="/:list(news|newest|ask|show|jobs)/:page?"
             component={LoadableNewsPage}
           />
-        </React.Suspense>
-      </Switch>
+          <Route component={LoadableNotFoundPage} />
+        </Switch>
+      </React.Suspense>
     </Container>
     <Divider />
     <Container textAlign="center" className="Footer" as="footer">

@@ -5,6 +5,4 @@ type Props = {
   error: string
 }
 
-export default ({ error }: Props) => (
-  <Message error={true}>Error while fetching posts: {error}</Message>
-)
+export default ({ error }: Props) => <Message error={true}>{error}</Message>
