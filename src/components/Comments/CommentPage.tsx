@@ -1,7 +1,12 @@
 // @ts-ignore
 import React, { Suspense, SuspenseList } from 'react'
 import { RouteComponentProps } from 'react-router'
-import { ErrorBoundary, ErrorMessage, Loading } from '../Utils'
+import {
+  ErrorBoundary,
+  ErrorMessage,
+  PostSkeleton,
+  CommentSkeleton,
+} from '../Utils'
 import CommentList from './CommentList'
 import CommentNewsHeader from './CommentNewsHeader'
 
@@ -23,10 +28,10 @@ const CommentPage: React.FC<Props> = props => {
         fallback={<ErrorMessage error="Could not fetch comments" />}
       >
         <SuspenseList tail="collapsed" revealOrder="forwards">
-          <Suspense fallback={<Loading message="Fetching news" />}>
+          <Suspense fallback={<PostSkeleton />}>
             <CommentNewsHeader id={newsId} />
           </Suspense>
-          <Suspense fallback={<Loading message="Fetching comments" />}>
+          <Suspense fallback={<CommentsSkeleton />}>
             <CommentList id={newsId} />
           </Suspense>
         </SuspenseList>
@@ -34,5 +39,13 @@ const CommentPage: React.FC<Props> = props => {
     </div>
   )
 }
+
+const CommentsSkeleton = () => (
+  <>
+    {[...Array(5)].map(() => (
+      <CommentSkeleton />
+    ))}
+  </>
+)
 
 export default CommentPage

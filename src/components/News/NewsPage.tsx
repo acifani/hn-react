@@ -1,7 +1,7 @@
 // @ts-ignore
 import React, { Suspense } from 'react'
 import { RouteComponentProps } from 'react-router'
-import { ErrorBoundary, ErrorMessage, Loading } from '../Utils'
+import { ErrorBoundary, ErrorMessage, PostSkeleton } from '../Utils'
 import NewsList from './NewsList'
 
 const supportedLists = ['news', 'newest', 'ask', 'jobs', 'show']
@@ -21,11 +21,19 @@ const NewsPage: React.FC<Props> = props => {
 
   return (
     <ErrorBoundary fallback={<ErrorMessage error="Could not fetch posts" />}>
-      <Suspense fallback={<Loading message="Fetching posts" />}>
+      <Suspense fallback={<Skeleton />}>
         <NewsList list={list} page={page} />
       </Suspense>
     </ErrorBoundary>
   )
 }
+
+const Skeleton = () => (
+  <>
+    {[...Array(10)].map(() => (
+      <PostSkeleton />
+    ))}
+  </>
+)
 
 export default NewsPage
