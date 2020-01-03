@@ -5,10 +5,11 @@ import { newspageResource } from '../../api'
 
 type Props = {
   page: number
+  list: string
 }
 
-const NewsList: React.FC<Props> = ({ page }) => {
-  const data = newspageResource.read(page)
+const NewsList: React.FC<Props> = ({ list, page }) => {
+  const data = newspageResource.read({ list, page })
   const news = data.map((p: any) => <NewsListRow news={p} key={p.id} />)
 
   return <Feed size="large">{news}</Feed>

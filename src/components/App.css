@@ -1,7 +1,14 @@
-.Header > a {
-  color: inherit;
-}
-
 .Footer {
   margin: 2em 0em;
+}
+
+.top-menu {
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+.top-menu::-webkit-scrollbar {
+  /* WebKit */
+  width: 0;
+  height: 0;
 }

@@ -3,10 +3,11 @@ import { Icon } from 'semantic-ui-react'
 import { userResource } from '../../api'
 
 export type User = {
-  id: string
-  created: string
-  karma: number
   about?: string
+  created_time: number
+  created: string
+  id: string
+  karma: number
 }
 
 type Props = {

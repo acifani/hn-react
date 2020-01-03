@@ -5,7 +5,10 @@ type Props = {
 }
 
 const DomainLink: React.FC<Props> = ({ domain }) => (
-  <a href={`http://${domain}`}> {domain} </a>
+  <a href={`http://${domain}`} target="_blank" rel="noopener noreferrer">
+    {' '}
+    {domain}
+  </a>
 )
 
 export default DomainLink

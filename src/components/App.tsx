@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { Route, Switch } from 'react-router'
-import { Link } from 'react-router-dom'
-import { Container, Divider, Header } from 'semantic-ui-react'
+import { Container, Divider } from 'semantic-ui-react'
 import './App.css'
+import TopMenu from './Menu'
 import { Loading } from './Utils'
 
 const LoadableNewsPage = React.lazy(() => import('./News'))
@@ -10,23 +10,21 @@ const LoadableCommentPage = React.lazy(() => import('./Comments'))
 const LoadableUserPage = React.lazy(() => import('./User'))
 
 const App = () => (
-  <div>
-    <Container text={true}>
-      <Header as="h1" className="Header">
-        <Link to="/"> Hacker News</Link>
-      </Header>
-    </Container>
-    <Divider />
-    <React.Suspense fallback={<Loading />}>
-      <Container text={true}>
-        <Switch>
-          <Route path="/" exact={true} component={LoadableNewsPage} />
-          <Route path="/news/:page?" component={LoadableNewsPage} />
+  <>
+    <TopMenu />
+    <Container text style={{ marginTop: '1em' }}>
+      <Switch>
+        <React.Suspense fallback={<Loading />}>
+          <Route path="/" exact component={LoadableNewsPage} />
           <Route path="/comments/:id" component={LoadableCommentPage} />
           <Route path="/user/:userId" component={LoadableUserPage} />
-        </Switch>
-      </Container>
-    </React.Suspense>
+          <Route
+            path="/:list(news|newest|ask|show|jobs)/:page?"
+            component={LoadableNewsPage}
+          />
+        </React.Suspense>
+      </Switch>
+    </Container>
     <Divider />
     <Container textAlign="center" className="Footer">
       <p>
@@ -38,7 +36,7 @@ const App = () => (
         available on <a href="https://github.com/acifani/yahnc">GitHub</a>.
       </p>
     </Container>
-  </div>
+  </>
 )
 
 export default App

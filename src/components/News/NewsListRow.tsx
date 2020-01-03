@@ -5,15 +5,15 @@ import { DomainLink, NewsLink, UserLink } from '../Utils'
 
 export type News = {
   comments_count: number
-  content?: string
-  domain: string
+  domain?: string
   id: number
-  points: number | null
+  points?: number | null
   time_ago: string
+  time: number
   title: string
   type: 'link' | 'ask' | 'job'
-  url: string
-  user: string | null
+  url?: string
+  user?: string | null
 }
 
 type Props = {
