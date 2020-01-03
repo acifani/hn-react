@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 
 export default function TopMenu() {
   return (
-    <Menu attached="top" className="top-menu">
+    <Menu attached="top" className="top-menu" as="nav">
       <Container text>
         <Menu.Item header>
           <NavLink to="/">Hacker News</NavLink>

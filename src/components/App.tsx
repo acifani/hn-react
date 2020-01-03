@@ -12,7 +12,7 @@ const LoadableUserPage = React.lazy(() => import('./User'))
 const App = () => (
   <>
     <TopMenu />
-    <Container text style={{ marginTop: '1em' }}>
+    <Container text style={{ marginTop: '1em' }} as="main">
       <Switch>
         <React.Suspense fallback={<Loading />}>
           <Route path="/" exact component={LoadableNewsPage} />
@@ -26,7 +26,7 @@ const App = () => (
       </Switch>
     </Container>
     <Divider />
-    <Container textAlign="center" className="Footer">
+    <Container textAlign="center" className="Footer" as="footer">
       <p>
         Made with{' '}
         <span role="img" aria-label="Love">

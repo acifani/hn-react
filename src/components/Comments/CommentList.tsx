@@ -1,5 +1,5 @@
 import React from 'react'
-import CommentListRow, { Comment as CommentType } from './CommentListRow'
+import CommentListRow, { Item as CommentType } from './CommentListRow'
 import { commentsResource } from '../../api'
 
 type Props = {

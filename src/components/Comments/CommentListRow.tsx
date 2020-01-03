@@ -3,18 +3,26 @@ import { Comment } from 'semantic-ui-react'
 import { UserLink } from '../Utils'
 import { CommentListComponent } from './CommentList'
 
-export type Comment = {
+export type Item = {
+  comments_count: number
+  comments: Item[]
+  content: string
+  dead?: boolean
+  deleted?: boolean
+  domain?: string
   id: number
   level: number
-  user: string
-  time: number
+  points: number | null
   time_ago: string
-  content: string
-  comments: Comment[]
+  time: number
+  title: string
+  type: string
+  url?: string
+  user: string | null
 }
 
 type Props = {
-  comment: Comment
+  comment: Item
 }
 
 const CommentListRow: React.FC<Props> = ({ comment }) => (
@@ -24,9 +32,11 @@ const CommentListRow: React.FC<Props> = ({ comment }) => (
         src={`https://avatars.dicebear.com/v2/identicon/${comment.user}.svg`}
       ></Comment.Avatar>
       <Comment.Content>
-        <Comment.Author as="a">
-          {<UserLink user={comment.user} />}
-        </Comment.Author>
+        {comment.user && (
+          <Comment.Author as="a">
+            {<UserLink user={comment.user} />}
+          </Comment.Author>
+        )}
         <Comment.Metadata as="span">{comment.time_ago}</Comment.Metadata>
         <Comment.Text>
           <div dangerouslySetInnerHTML={{ __html: comment.content }} />
