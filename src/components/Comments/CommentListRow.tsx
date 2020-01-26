@@ -27,7 +27,12 @@ type Props = {
 
 const CommentListRow: React.FC<Props> = ({ comment }) => {
   const [expanded, setExpanded] = useState(true)
-  const toggleExpanded = () => setExpanded(!expanded)
+  const toggleExpanded = (event: React.SyntheticEvent<HTMLSpanElement>) => {
+    const selection = window.getSelection()?.toString()
+    if (!selection) {
+      setExpanded(!expanded)
+    }
+  }
 
   return (
     <Comment.Group threaded={!!comment.comments && expanded}>
