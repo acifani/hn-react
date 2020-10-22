@@ -1,0 +1,41 @@
+{
+  "files": {
+    "static/js/0.3e1f78cb.chunk.js": "/yahnc/static/js/0.3e1f78cb.chunk.js",
+    "static/js/0.3e1f78cb.chunk.js.map": "/yahnc/static/js/0.3e1f78cb.chunk.js.map",
+    "static/js/1.961d1e8f.chunk.js": "/yahnc/static/js/1.961d1e8f.chunk.js",
+    "static/js/1.961d1e8f.chunk.js.map": "/yahnc/static/js/1.961d1e8f.chunk.js.map",
+    "static/js/2.ca597dc9.chunk.js": "/yahnc/static/js/2.ca597dc9.chunk.js",
+    "static/js/2.ca597dc9.chunk.js.map": "/yahnc/static/js/2.ca597dc9.chunk.js.map",
+    "static/js/3.56f1f246.chunk.js": "/yahnc/static/js/3.56f1f246.chunk.js",
+    "static/js/3.56f1f246.chunk.js.map": "/yahnc/static/js/3.56f1f246.chunk.js.map",
+    "main.css": "/yahnc/static/css/main.5e394b27.chunk.css",
+    "main.js": "/yahnc/static/js/main.37f43d1c.chunk.js",
+    "main.js.map": "/yahnc/static/js/main.37f43d1c.chunk.js.map",
+    "runtime-main.js": "/yahnc/static/js/runtime-main.b1ca3d53.js",
+    "runtime-main.js.map": "/yahnc/static/js/runtime-main.b1ca3d53.js.map",
+    "static/css/6.9c24cd91.chunk.css": "/yahnc/static/css/6.9c24cd91.chunk.css",
+    "static/js/6.ae63a646.chunk.js": "/yahnc/static/js/6.ae63a646.chunk.js",
+    "static/js/6.ae63a646.chunk.js.map": "/yahnc/static/js/6.ae63a646.chunk.js.map",
+    "static/js/7.59e50a9f.chunk.js": "/yahnc/static/js/7.59e50a9f.chunk.js",
+    "static/js/7.59e50a9f.chunk.js.map": "/yahnc/static/js/7.59e50a9f.chunk.js.map",
+    "static/js/8.542720de.chunk.js": "/yahnc/static/js/8.542720de.chunk.js",
+    "static/js/8.542720de.chunk.js.map": "/yahnc/static/js/8.542720de.chunk.js.map",
+    "index.html": "/yahnc/index.html",
+    "precache-manifest.863d2a24efdb572e3aa65c7dcc6fa1ab.js": "/yahnc/precache-manifest.863d2a24efdb572e3aa65c7dcc6fa1ab.js",
+    "service-worker.js": "/yahnc/service-worker.js",
+    "static/css/6.9c24cd91.chunk.css.map": "/yahnc/static/css/6.9c24cd91.chunk.css.map",
+    "static/css/main.5e394b27.chunk.css.map": "/yahnc/static/css/main.5e394b27.chunk.css.map",
+    "static/js/1.961d1e8f.chunk.js.LICENSE.txt": "/yahnc/static/js/1.961d1e8f.chunk.js.LICENSE.txt",
+    "static/js/2.ca597dc9.chunk.js.LICENSE.txt": "/yahnc/static/js/2.ca597dc9.chunk.js.LICENSE.txt",
+    "static/js/6.ae63a646.chunk.js.LICENSE.txt": "/yahnc/static/js/6.ae63a646.chunk.js.LICENSE.txt",
+    "static/js/7.59e50a9f.chunk.js.LICENSE.txt": "/yahnc/static/js/7.59e50a9f.chunk.js.LICENSE.txt",
+    "static/media/semantic.min.css": "/yahnc/static/media/outline-icons.ef60a4f6.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b1ca3d53.js",
+    "static/css/6.9c24cd91.chunk.css",
+    "static/js/6.ae63a646.chunk.js",
+    "static/css/main.5e394b27.chunk.css",
+    "static/js/main.37f43d1c.chunk.js"
+  ]
+}
