@@ -1,6 +1,6 @@
 // @ts-ignore
 import React, { Suspense } from 'react'
-import { RouteComponentProps } from 'react-router'
+import { useParams } from 'react-router'
 import {
   ErrorBoundary,
   ErrorMessage,
@@ -10,14 +10,8 @@ import {
 import CommentList from './CommentList'
 import CommentNewsHeader from './CommentNewsHeader'
 
-type UrlProps = {
-  id?: string
-}
-
-type Props = RouteComponentProps<UrlProps>
-
-const CommentPage: React.FC<Props> = props => {
-  const newsId = props.match.params.id
+function CommentPage() {
+  const { id: newsId } = useParams()
   if (!newsId) {
     return null
   }

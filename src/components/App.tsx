@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Route, Switch } from 'react-router'
+import { Route, Routes } from 'react-router'
 import { Container, Divider } from 'semantic-ui-react'
 import './App.css'
 import TopMenu from './Menu'
@@ -15,16 +15,22 @@ const App = () => (
     <TopMenu />
     <Container text style={{ marginTop: '1em' }} as="main">
       <React.Suspense fallback={<Loading />}>
-        <Switch>
-          <Route path="/" exact component={LoadableNewsPage} />
-          <Route path="/comments/:id" component={LoadableCommentPage} />
-          <Route path="/user/:userId" component={LoadableUserPage} />
-          <Route
-            path="/:list(news|newest|ask|show|jobs)/:page?"
-            component={LoadableNewsPage}
-          />
-          <Route component={LoadableNotFoundPage} />
-        </Switch>
+        <Routes
+          basename={
+            process.env.NODE_ENV === 'production'
+              ? process.env.PUBLIC_URL
+              : undefined
+          }
+        >
+          <Route path="/" element={<LoadableNewsPage />} />
+          <Route path="/comments/:id" element={<LoadableCommentPage />} />
+          <Route path="/user/:userId" element={<LoadableUserPage />} />
+          <Route path="/:list/*" element={<LoadableNewsPage />}>
+            <Route path="/" element={<LoadableNewsPage />} />
+            <Route path="/:page" element={<LoadableNewsPage />} />
+          </Route>
+          <Route element={<LoadableNotFoundPage />} />
+        </Routes>
       </React.Suspense>
     </Container>
     <Divider />

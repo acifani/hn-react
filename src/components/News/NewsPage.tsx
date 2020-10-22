@@ -1,21 +1,14 @@
 // @ts-ignore
 import React, { Suspense } from 'react'
-import { RouteComponentProps } from 'react-router'
+import { useParams } from 'react-router'
 import { ErrorBoundary, ErrorMessage, PostSkeleton } from '../Utils'
 import NewsList from './NewsList'
 
 const supportedLists = ['news', 'newest', 'ask', 'jobs', 'show']
 
-type UrlProps = {
-  page?: string
-  list?: string
-}
-
-type Props = RouteComponentProps<UrlProps>
-
-const NewsPage: React.FC<Props> = props => {
-  const page = parseInt(props.match.params.page || '1', 10)
-  const listParam = props.match.params.list
+function NewsPage() {
+  const { page: pageParam, list: listParam } = useParams()
+  const page = parseInt(pageParam || '1', 10)
   const list =
     listParam && supportedLists.includes(listParam) ? listParam : 'news'
 

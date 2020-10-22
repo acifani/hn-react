@@ -8,12 +8,11 @@ import './index.css'
 import * as serviceWorker from './serviceWorker'
 
 // @ts-ignore
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.unstable_createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <ScrollToTop>
-        <App />
-      </ScrollToTop>
+    <BrowserRouter>
+      <ScrollToTop />
+      <App />
     </BrowserRouter>
   </StrictMode>
 )

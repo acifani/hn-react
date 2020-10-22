@@ -22,7 +22,7 @@ it('renders without crashing', () => {
   act(() => {
     createRoot(div).render(
       <MemoryRouter>
-        <Route component={App} />
+        <Route element={<App />} />
       </MemoryRouter>
     )
   })
