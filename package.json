@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "history": "^5.0.0",
-    "react": "^0.0.0-experimental-4ead6b530",
+    "react": "^0.14.0",
     "react-dom": "^0.0.0-experimental-4ead6b530",
     "react-router": "^6.0.0-beta.0",
     "react-router-dom": "^6.0.0-beta.0",
